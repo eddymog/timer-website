@@ -4,20 +4,11 @@ var cors = require('cors');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 // const Data = require('./data');
-
+var User = require('./model/User');
 const API_PORT = 3001;
 const app = express();
 app.use(cors());
 const router = express.Router();
-
-
-// const client = new MongoClient(uri, { useNewUrlParser: true });
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
-//   // perform actions on the collection object
-//   client.close();
-// });
-
 
 // this is our MongoDB database
 const dbRoute =
@@ -41,40 +32,57 @@ app.use(bodyParser.json());
 
 router.get('/hello', (req, res) => {
     console.log('hello!!@@!@!');
-    // db.collection('test2').countDocuments((xxx) => {
-    //     console.log(xxx);
-    // })
-    // db.collection('test2').find({"hello": "world"}, (err, data)=> {
-    //     if (err) return res.json({ success: false, error: err });
-    //     console.log(data);
-    //     return res.json({ success: true, data: 'sure' });
-    // });
-    db.collection('test2').find({}).toArray((err, documents) => {
-        if (err) throw error;
     
-        console.log(documents);
+
+    // create a new user called chris
+    var chris = new User({
+      name: 'Chris'
     });
+
+    // call the custom method. this will just add -dude to his name
+    // user will now be Chris-dude
+    chris.dudify(function(err, name) {
+      if (err) throw err;
+
+      console.log('Your new name is ' + name);
+    });
+
+    // call the built-in save method to save to the database
+    chris.save(function(err) {
+      if (err) throw err;
+
+      console.log('User saved successfully!');
+    });
+    // db.collection('test2').find({}).toArray((err, documents) => {
+    //     if (err) throw error;
+    
+    //     console.log(documents);
+    // });
     return res.send('hello!!!!');
 });
 // this is our get method
 // this method fetches all available data in our database
 router.get('/getData', (req, res) => {
-  Data.find({}, (err, data) => {
-    if (err) return res.json({ success: false, error: err });
-    console.log(data[0]);
-    return res.json({ success: true, data: data });
+  const Timer = db.collection('Timer');
+
+  Timer.find({}).toArray().then((data) => {
+    console.log(data[0].myTime);
+    return res.json({ success: true, data, myTime: data[0].myTime });
   });
+    // return res.json({ success: true, data: 'sure' });
 });
 
 // // this is our update method
 // // this method overwrites existing data in our database
-// router.post('/updateData', (req, res) => {
-//   const { id, update } = req.body;
-//   Data.findByIdAndUpdate(id, update, (err) => {
-//     if (err) return res.json({ success: false, error: err });
-//     return res.json({ success: true });
-//   });
-// });
+router.get('/updateData', (req, res) => {
+  const Timer = db.collection('Timer');
+  console.log(Timer);
+  Timer.find('5d07d95f1c9d4400000321ac', {myTime: 2}, (err) => {
+    console.log('hello???');
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true });
+  });
+});
 
 // // this is our delete method
 // // this method removes existing data in our database
