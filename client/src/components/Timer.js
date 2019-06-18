@@ -17,6 +17,41 @@ export default class Timer extends React.Component {
     this.displayTimer = this.displayTimer.bind(this);
   }
 
+  componentDidMount() {
+    // fetch('/api/get-timer')
+    // .then((response) => {
+    //   console.log(response);
+    //   // console.log(response.json());
+    //   return response.json();
+    // })
+    // .then((data) => {
+    //   console.log(data[0].time);
+    //   this.setState({ myTime: data[0].time })
+    // });
+    window.addEventListener("beforeunload", this.onUnload);
+  }
+
+  onUnload(event) { 
+    fetch('/api/get-timer2')
+    .then((response) => {
+      console.log(response);
+      // console.log(response.json());
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data[0].time);
+      // this.setState({ myTime: data[0].time })
+    });
+  }
+  
+  componentDidMount() {
+    window.addEventListener("beforeunload", this.onUnload)
+  }
+  
+  componentWillUnmount() {
+     window.removeEventListener("beforeunload", this.onUnload)
+  }
+
   tick() {
     console.log(this.state.myTime);
     this.setState(prevState => ({

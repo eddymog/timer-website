@@ -37,6 +37,13 @@ router.get('/get-timer', (req, res) => {
   });
 });
 
+router.get('/get-timer2', (req, res) => {
+  Timer.find({myId: '1'}, (err, data) => {
+    console.log("! I am a boy");
+    return res.send(data);
+  });
+});
+
 router.post('/update-timer', (req, res) => {
 
   // const timer1 = new Timer({ time: 2, myId: 1 })
