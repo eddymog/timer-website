@@ -30,7 +30,36 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // app.use(logger('dev'));
 
+router.get('/get-timer', (req, res) => {
+  Timer.find({myId: '1'}, (err, data) => {
+    console.log(data);
+    return res.send(data);
+  });
+});
 
+router.post('/update-timer', (req, res) => {
+
+  // const timer1 = new Timer({ time: 2, myId: 1 })
+  // timer1.save((error, document) => {
+  //   console.log(document);
+  // });
+
+
+  // Timer.find({myId: '1'}, (err, data) => {
+  //   console.log(data);
+  //   return res.send('hello');
+  // });
+
+  Timer.findOneAndUpdate({myId: '1'}, {time: req.body.timer}, (err, data) => {
+    if (err) throw err;
+    console.log(data);
+    
+    return res.send(data);
+  });
+
+  // timer1.updateTimer(req.body.timer);
+  // return res.send('hello');
+});
 
 
 router.get('/hello', (req, res) => {

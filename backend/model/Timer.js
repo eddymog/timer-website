@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 
 // create a schema
 const timerSchema = new Schema({
-  time: Number
+  time: Number,
+  myId: String
 });
 
 // custom method to add string to end of name
@@ -16,6 +17,12 @@ timerSchema.methods.dudify = function() {
   
     return this.name;
   };
+
+timerSchema.methods.updateTimer = (newTime) => {
+  console.log(newTime + "!!!");
+  
+  return this.time;
+};
 
 // the schema is useless so far
 // we need to create a model using it
