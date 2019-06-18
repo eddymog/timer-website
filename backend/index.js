@@ -4,7 +4,7 @@ var cors = require('cors');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 // const Data = require('./data');
-var User = require('./model/User');
+var Timer = require('./model/Timer');
 const API_PORT = 3001;
 const app = express();
 app.use(cors());
@@ -29,6 +29,9 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // app.use(logger('dev'));
+
+
+
 
 router.get('/hello', (req, res) => {
     console.log('hello!!@@!@!');

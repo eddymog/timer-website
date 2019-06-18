@@ -1,16 +1,16 @@
 // grab the things we need
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 // create a schema
-var userSchema = new Schema({
-  name: String
+const timerSchema = new Schema({
+  time: Number
 });
 
 // custom method to add string to end of name
 // you can create more important methods like name validations or formatting
 // you can also do queries and find similar users 
-userSchema.methods.dudify = function() {
+timerSchema.methods.dudify = function() {
     // add some stuff to the users name
     this.name = this.name + '-dude'; 
   
@@ -19,7 +19,7 @@ userSchema.methods.dudify = function() {
 
 // the schema is useless so far
 // we need to create a model using it
-var User = mongoose.model('Useraas', userSchema);
+const Timer = mongoose.model('timer', timerSchema);
 
 // make this available to our users in our Node applications
-module.exports = User;
+module.exports = Timer;
