@@ -104,14 +104,14 @@ export default class Timer extends React.Component {
 
   render() {
     return (
-    <div style={{color: "#333"}}>
+    <div style={{color: "#333", width: '300px', margin: 'auto', marginTop: '15px'}}>
       <Card>
         <CardBody>
           <CardTitle><span style={{color: "#333"}}>Stopwatch</span></CardTitle>
           <h2>{this.displayTimer()}</h2>
-          <Button onClick={this.startCounter}>Start/Stop</Button>
-          <Button onClick={this.resetCounter}>Reset</Button>
-          <Button>Edit</Button>
+          <Button size="sm" outline color="primary" onClick={this.startCounter}>Start/Stop</Button>
+          <Button size="sm" outline color="danger" onClick={this.resetCounter}>Reset</Button>
+          <Button size="sm" outline color="info" >Edit</Button>
         </CardBody>
       </Card>
     </div>
